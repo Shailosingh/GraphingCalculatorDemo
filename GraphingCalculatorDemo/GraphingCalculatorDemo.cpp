@@ -68,9 +68,7 @@ private:
 	{
 		double amplitude = MidpointY / 2;
 		int32_t numberOfPeriods = 6;
-		std::cout << "Amplitude: " << amplitude << "\n";
 		double horizontalStretch = (2 * Pi * numberOfPeriods) / ScreenWidth();
-		std::cout << "Horizontal Stretch: " << horizontalStretch << "\n";
 		return (int32_t)(amplitude*sin(horizontalStretch*x));
 	}
 };
