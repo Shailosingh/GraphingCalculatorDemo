@@ -33,16 +33,21 @@ public:
 		DrawLine(0, MidpointY, ScreenWidth(), MidpointY, olc::Pixel(255, 255, 255));
 
 		//Draw graph
-		for (int32_t xPixel = 0; xPixel < ScreenWidth(); xPixel++)
+		for (int32_t x1Pixel = 0; x1Pixel < ScreenWidth()-1; x1Pixel++)
 		{
-			//Center the xPixel so that the midpoint of the screen is 0
-			int32_t centeredXPixel = xPixel - MidpointX;
+			//Get the x-coordinate after x1Pixel
+			int32_t x2Pixel = x1Pixel + 1;
+
+			//Center the x1Pixel and x2Pixel so that the midpoint of the screen is 0
+			int32_t centeredX1Pixel = x1Pixel - MidpointX;
+			int32_t centeredX2Pixel = x2Pixel - MidpointX;
 
 			//Get the centered y-coordinate and then convert it to the uncentered pixel value
-			int32_t yPixel = MidpointY - MathematicalFunction(xPixel);
+			int32_t y1Pixel = MidpointY - MathematicalFunction(centeredX1Pixel);
+			int32_t y2Pixel = MidpointY - MathematicalFunction(centeredX2Pixel);
 
-			//Draw pixel on screen
-			Draw(xPixel, yPixel, olc::Pixel(255, 0, 0));
+			//Draw line between two pixels on screen
+			DrawLine(x1Pixel, y1Pixel, x2Pixel, y2Pixel, olc::Pixel(255, 0, 0));
 		}
 
 		return true;
@@ -67,7 +72,7 @@ private:
 	int32_t MathematicalFunction(int32_t x)
 	{
 		double amplitude = MidpointY / 2;
-		int32_t numberOfPeriods = 6;
+		int32_t numberOfPeriods = 3;
 		double horizontalStretch = (2 * Pi * numberOfPeriods) / ScreenWidth();
 		return (int32_t)(amplitude*sin(horizontalStretch*x));
 	}
